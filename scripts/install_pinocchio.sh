@@ -197,10 +197,14 @@ echo "=========================================="
 echo "开始安装 Pinocchio 及其依赖"
 echo "=========================================="
 
-# 取消注释以下行来选择要安装的组件
-# installEigenpy
-# installCasADi
-installPinocchio
+# 如果启用了 CASADI 支持，必须先安装 CasADi
+# 如果不需要 CasADi，请在 installPinocchio() 中修改 CMake 参数
+# 将 -DBUILD_WITH_CASADI_SUPPORT=ON 改为 OFF
+
+# 推荐安装顺序（取消注释所需组件）：
+# installEigenpy       # Eigenpy 依赖（可选，Pinocchio会自动处理）
+installCasADi          # CasADi 支持（必需，如果启用了 CASADI 支持）
+installPinocchio       # Pinocchio 主库
 
 echo ""
 echo "=========================================="
