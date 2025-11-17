@@ -58,6 +58,15 @@ function check_system_dependencies() {
       echo "✓ Boost 已安装"
   fi
   
+  # 检查 IPOPT (CasADi 需要的优化求解器)
+  if ! pkg-config --exists ipopt; then
+      echo "IPOPT 未找到，正在安装..."
+      sudo apt install -y coinor-libipopt-dev
+      echo "✓ IPOPT 安装完成"
+  else
+      echo "✓ IPOPT 已安装"
+  fi
+  
   # 检查其他构建工具
   if ! command -v cmake &> /dev/null; then
       echo "CMake 未找到，正在安装..."
@@ -137,7 +146,8 @@ function installCasADi(){
       -DPYTHON_EXECUTABLE="$(which python)" \
       -DCMAKE_INSTALL_PREFIX="$VIRTUAL_ENV" \
       -DWITH_IPOPT=ON \
-      -DWITH_PYTHON=ON
+      -DWITH_PYTHON=ON \
+      -DWITH_BUILD_IPOPT=OFF
 
   # 编译和安装
   make -j$(nproc)
