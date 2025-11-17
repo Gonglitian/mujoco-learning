@@ -29,6 +29,23 @@ echo "Python 版本: $PYTHON_VERSION"
 echo "Site-packages: $SITE_PACKAGES"
 
 # ========================================
+# 安装系统依赖
+# ========================================
+echo "=========================================="
+echo "安装系统依赖 (Eigen3)"
+echo "=========================================="
+
+# 检查是否已安装 Eigen3
+if ! pkg-config --exists eigen3; then
+    echo "Eigen3 未找到，正在安装..."
+    sudo apt update
+    sudo apt install -y libeigen3-dev
+    echo "✓ Eigen3 安装完成"
+else
+    echo "✓ Eigen3 已安装: $(pkg-config --modversion eigen3)"
+fi
+
+# ========================================
 # 安装 Orocos KDL
 # ========================================
 echo "=========================================="

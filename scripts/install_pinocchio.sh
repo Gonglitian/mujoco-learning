@@ -22,10 +22,41 @@ fi
 
 echo "虚拟环境: $VIRTUAL_ENV"
 
+# ========================================
+# 检查系统依赖
+# ========================================
+function check_system_dependencies() {
+  echo "=========================================="
+  echo "检查系统依赖"
+  echo "=========================================="
+  
+  # 检查 Eigen3
+  if ! pkg-config --exists eigen3; then
+      echo "Eigen3 未找到，正在安装..."
+      sudo apt update
+      sudo apt install -y libeigen3-dev
+      echo "✓ Eigen3 安装完成"
+  else
+      echo "✓ Eigen3 已安装: $(pkg-config --modversion eigen3)"
+  fi
+  
+  # 检查其他构建工具
+  if ! command -v cmake &> /dev/null; then
+      echo "CMake 未找到，正在安装..."
+      sudo apt install -y cmake
+      echo "✓ CMake 安装完成"
+  else
+      echo "✓ CMake 已安装: $(cmake --version | head -n1)"
+  fi
+}
+
 function installEigenpy () {
   echo "=========================================="
   echo "安装 Eigenpy"
   echo "=========================================="
+  
+  # 检查系统依赖
+  check_system_dependencies
   
   # 安装 numpy
   uv pip install numpy
@@ -61,6 +92,9 @@ function installCasADi(){
   echo "=========================================="
   echo "安装 CasADi"
   echo "=========================================="
+  
+  # 检查系统依赖
+  check_system_dependencies
   
   cd "$SCRIPT_DIR"
   
@@ -99,6 +133,9 @@ function installPinocchio(){
   echo "=========================================="
   echo "安装 Pinocchio"
   echo "=========================================="
+  
+  # 检查系统依赖
+  check_system_dependencies
   
   cd "$SCRIPT_DIR"
   
