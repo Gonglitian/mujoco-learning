@@ -40,10 +40,28 @@ function check_system_dependencies() {
       echo "✓ Eigen3 已安装: $(pkg-config --modversion eigen3)"
   fi
   
+  # 检查 urdfdom (Pinocchio 需要)
+  if ! pkg-config --exists urdfdom_headers; then
+      echo "urdfdom 未找到，正在安装..."
+      sudo apt install -y liburdfdom-headers-dev liburdfdom-dev
+      echo "✓ urdfdom 安装完成"
+  else
+      echo "✓ urdfdom 已安装"
+  fi
+  
+  # 检查 Boost (Pinocchio 可能需要)
+  if ! dpkg -l | grep -q libboost-all-dev; then
+      echo "Boost 未找到，正在安装..."
+      sudo apt install -y libboost-all-dev
+      echo "✓ Boost 安装完成"
+  else
+      echo "✓ Boost 已安装"
+  fi
+  
   # 检查其他构建工具
   if ! command -v cmake &> /dev/null; then
       echo "CMake 未找到，正在安装..."
-      sudo apt install -y cmake
+      sudo apt install -y cmake build-essential
       echo "✓ CMake 安装完成"
   else
       echo "✓ CMake 已安装: $(cmake --version | head -n1)"
