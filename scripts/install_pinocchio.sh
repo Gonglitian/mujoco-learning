@@ -49,13 +49,18 @@ function check_system_dependencies() {
       echo "✓ urdfdom 已安装"
   fi
   
-  # 检查 Boost (Pinocchio 可能需要)
+  # 检查 Boost (Pinocchio 和 Eigenpy 需要)
   if ! dpkg -l | grep -q libboost-all-dev; then
       echo "Boost 未找到，正在安装..."
-      sudo apt install -y libboost-all-dev
+      sudo apt install -y libboost-all-dev libboost-python-dev libboost-numpy-dev
       echo "✓ Boost 安装完成"
   else
       echo "✓ Boost 已安装"
+      # 检查 Boost.Python 是否安装
+      if ! dpkg -l | grep -q libboost-python-dev; then
+          echo "安装 Boost.Python 和 Boost.NumPy..."
+          sudo apt install -y libboost-python-dev libboost-numpy-dev
+      fi
   fi
   
   # 检查 IPOPT (CasADi 需要的优化求解器)
