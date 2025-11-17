@@ -25,8 +25,9 @@ A comprehensive Python package for robotics learning with MuJoCo, featuring inve
 
 ### Prerequisites
 
-- Python 3.10+ 
+- **Python 3.10** (recommended, 3.11+ may have compatibility issues with system Boost)
 - [uv](https://github.com/astral-sh/uv) (recommended) or pip
+- Ubuntu 20.04/22.04 or similar Linux distribution
 
 ### Basic Setup
 
@@ -35,8 +36,8 @@ A comprehensive Python package for robotics learning with MuJoCo, featuring inve
 git clone https://github.com/Gonglitian/mujoco-learning.git
 cd mujoco-learning
 
-# Create and activate virtual environment with uv
-uv venv
+# Create and activate virtual environment with Python 3.10
+uv venv --python 3.10
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install Python dependencies
