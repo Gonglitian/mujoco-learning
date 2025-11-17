@@ -1,49 +1,231 @@
-# mujoco-learning
+# MuJoCo Learning
 
-## Related package
+A comprehensive Python package for robotics learning with MuJoCo, featuring inverse kinematics, path planning, reinforcement learning, and real robot control.
 
-```
-# uv 
+## 📋 Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Package Structure](#package-structure)
+- [Quick Start](#quick-start)
+- [Tutorials](#tutorials)
+- [Contributing](#contributing)
+
+## ✨ Features
+
+- 🤖 **Kinematics**: IK solvers using Pinocchio, CasADi, PyKDL, and PyRoboPlan
+- 🎮 **Control**: Joint/Cartesian space control, impedance control, PID control
+- 🛤️ **Path Planning**: RRT, OMPL integration, trajectory optimization with TOPPRA
+- 🧠 **Reinforcement Learning**: PPO-based robotic arm control with Stable-Baselines3
+- 📊 **Visualization**: Custom viewers, real-time trajectory plotting, camera rendering
+- 🕹️ **Joystick Control**: Xbox controller support for simulation and real robot
+- 🔄 **Sim2Real**: SO-ARM100 real robot control via ZMQ communication
+
+## 🚀 Installation
+
+### Prerequisites
+
+- Python 3.10+ 
+- [uv](https://github.com/astral-sh/uv) (recommended) or pip
+
+### Basic Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/Gonglitian/mujoco-learning.git
+cd mujoco-learning
+
+# Create and activate virtual environment with uv
 uv venv
-source .venv/bin/activate
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install Python dependencies
 uv pip install -r requirements.txt
-
-# install PyKDL
-bash install_pykdl.sh
-
-# install pinocchio
-bash install_pinocchio.sh
-
 ```
 
-## Tutorials
-|file|url|
-|----|-------|
-|panda_pbvs.py|[Mujoco 机械臂进行 PBVS 基于位置的视觉伺服思路](https://www.bilibili.com/video/BV18zC5BNEt6/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|rl_panda_reach_target_high_profile.py|[Mujoco 仿真 PPO 强化学习机械臂末端路径规划到达指定位置](https://www.bilibili.com/video/BV1DAskzmEPZ/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|joystick_sim_and_real_so100.py|[SO-ARM100 双场景演示：手柄驱动 Mujoco 仿真 + 实机控制](https://www.bilibili.com/video/BV1RCp1zFE2v/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|joystick_so100.py|[北通手柄遥控 + Mujoco 仿真 SO-ARM100 机械臂末端位姿](https://www.bilibili.com/video/BV1fyYLzVEbW/?share_source=copy_web&vd_source=98d79df50a14f07106c58e9e50f70c68)|
-|so100_real_control.py|[sim2real！so-arm100 机械臂 Mujoco 仿真与实机控制](https://www.bilibili.com/video/BV1gHeHz7ETT/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|control_ee_with_pinocchio_so100.py|[Pinocchio 结合 CasADi 进行 IK 逆运动学及 Mujoco 仿真](https://www.bilibili.com/video/BV1o38gzSE9h/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|install_pinocchio.sh|[Pinocchio 导入 CasADi 失败？源码编译保姆级教程，一步到位解决！](https://www.bilibili.com/video/BV1mSghz1EUx/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|kdl_urdf_test.py|[不装 ROS 也能用 PyKDL！使用kdl_parser解析URDF并进行IK](https://www.bilibili.com/video/BV1RWMHzREg4/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|get_torque.py|[MuJoCo 解析 qfrc 三种力！带你测试鼠标拖拽物理交互效果](https://www.bilibili.com/video/BV1kH79zUEAc/?vd_source=5ba34935b7845cd15c65ef62c64ba82f)|
-|joint_impedance_control.py|[MuJoCo 机械臂关节空间阻抗控制Impedance实现（附代码）](https://www.bilibili.com/video/BV1UK5czMEQr/?vd_source=5ba34935b7845cd15c65ef62c64ba82f#reply262516173552)|
-|rl_panda.py|[MuJoCo 机械臂 PPO 强化学习逆向运动学（IK）](https://www.bilibili.com/video/BV1mHLVzzEMj?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|pid_torque_and_get.py|[MuJoCo 机械臂 PID 控制器输出力矩控制到达指定位置（附代码）](https://www.bilibili.com/video/BV1MbL6zSEAY?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|get_body_pos.py|[MuJoCo 仿真 Panda 机械臂！末端位置实时追踪 + 可视化（含缩放交互）](https://www.bilibili.com/video/BV1gaXxYaEnv?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|control_joint_pos.py|[MuJoCo 仿真 Panda 机械臂关节空间运动｜含完整代码](https://www.bilibili.com/video/BV1pWoBYcETJ?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|test_pinocchio.py|[Pinocchio 安装教程｜机器人学的必备库](https://www.bilibili.com/video/BV1UFoRYDEfF?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|control_ee_with_pinocchio.py|[【逆解机械臂】Pinocchio+MuJuCo 仿真 CLIK 闭环控制！附代码](https://www.bilibili.com/video/BV1aAZYYAE5f?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|move_ball.py|[MuJoCo 可视化键盘控制球体及位姿实时记录，附代码！](https://www.bilibili.com/video/BV1oTZrYaE2h?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|trajectory_plan_toppra.py|[MuJoCo 仿真 + TOPPRA 最优时间轨迹规划！机械臂运动效率拉满（附代码）](https://www.bilibili.com/video/BV1fndxYSEui?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|path_plan_ompl_rrtconnect.py|[MuJoCo + OMPL 进行Panda机械臂关节空间的RRT路径规划](https://www.bilibili.com/video/BV1EJd5YQExw?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|test_pyroboplan.py|[PyRoboPlan 库，给 panda 机械臂微分 IK 上大分，关节限位、碰撞全不怕](https://www.bilibili.com/video/BV1Rod6YHET2?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|path_plan_pyroboplan_rrt.py|[MuJoCo 机械臂关节路径规划+轨迹优化+末端轨迹可视化（附代码）](https://www.bilibili.com/video/BV1tZo7YjEgd?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|path_plan_pyroboplan_rrt_draw_trajectory.py|[MuJoCo 画出机械臂末端轨迹进行可视化（附代码）](https://www.bilibili.com/video/BV1B2ocYSE7r?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|ik_path_paln_trajectory_pyroboplan.py|[MuJoCo 提高机械臂笛卡尔空间IK+路径规划+轨迹优化的成功率及效率](https://www.bilibili.com/video/BV1qA5EzPEFh?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|mocap_panda.py|[MuJoCo 动捕接口 Mocap 直接操控机械臂（附代码）](https://www.bilibili.com/video/BV1k651zXEeN?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|set_and_get_qvel.py|[MuJoCo 关节角速度记录与可视化，监控机械臂运动状态](https://www.bilibili.com/video/BV1kSLdznEMd?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|get_camera_pic.py|[MuJoCo 相机图片怎么拿？视角调整获取物体图片及实时显示（附代码）](https://www.bilibili.com/video/BV1THGSzvE6t?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|test_why_continuous_2q.py|[Pinocchio导入URDF关节为continuous的问题及详细解释](https://www.bilibili.com/video/BV1tvVrzmEgx?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
-|contact_detect.py|[MuJoCo 机械臂物体碰撞、接触检测方式一](https://www.bilibili.com/video/BV12WfFYYE4T?vd_source=5ba34935b7845cd15c65ef62c64ba82f&spm_id_from=333.788.videopod.sections)|
+### Optional Dependencies
+
+#### Install PyKDL (for KDL-based IK)
+
+```bash
+cd scripts
+bash install_pykdl.sh
+```
+
+#### Install Pinocchio with CasADi Support (for advanced IK)
+
+```bash
+cd scripts
+bash install_pinocchio.sh
+```
+
+See [tutorial video](https://www.bilibili.com/video/BV1mSghz1EUx/) for detailed installation guide.
+
+## 📁 Package Structure
+
+```
+mujoco-learning/
+├── mj_learning/              # Main package
+│   ├── kinematics/          # IK solvers (Pinocchio, CasADi, PyKDL, PyRoboPlan)
+│   ├── control/             # Robot controllers (PID, impedance, joint/cartesian)
+│   ├── path_planning/       # Path planners (RRT, OMPL) and trajectory optimization
+│   ├── reinforcement_learning/  # RL environments and trained models
+│   ├── visualization/       # Custom MuJoCo viewers and rendering tools
+│   ├── sensors/             # Sensor data processing and contact detection
+│   ├── joystick/           # Joystick control interfaces
+│   ├── mocap/              # Motion capture interface
+│   ├── converters/         # Format converters (MJCF to USD)
+│   ├── tests/              # Test scripts
+│   └── utils.py            # Utility functions and MODEL_ROOT constant
+├── model/                   # Robot URDF/MJCF models
+├── assets/                  # Trained RL models and resources
+├── scripts/                 # Installation scripts
+└── test_imports.py         # Package validation script
+```
+
+## 🎯 Quick Start
+
+### Validate Installation
+
+```bash
+# Test package imports
+uv run python test_imports.py
+```
+
+### Basic Usage Examples
+
+```python
+# Import modules using standard package syntax
+from mj_learning import utils
+from mj_learning.visualization import mujoco_viewer
+from mj_learning.kinematics import casadi_ik
+
+# Model paths use centralized constant
+import os
+model_path = os.path.join(utils.MODEL_ROOT, "franka_emika_panda/scene.xml")
+```
+
+### Running Examples
+
+All example scripts are located in the `mj_learning/` submodules:
+
+```bash
+# Kinematics example
+uv run python -m mj_learning.kinematics.ik_casadi_panda
+
+# Control example
+uv run python -m mj_learning.control.joint_impedance_control
+
+# Path planning example
+uv run python -m mj_learning.path_planning.path_plan_pyroboplan_rrt
+
+# Reinforcement learning
+uv run python -m mj_learning.reinforcement_learning.rl_panda_reach_target_high_profile
+
+# Visualization
+uv run python -m mj_learning.visualization.panda_viewer
+
+# Joystick control (requires Xbox controller)
+uv run python -m mj_learning.joystick.joystick_so100
+```
+
+## 📚 Tutorials
+
+All tutorials include video explanations (in Chinese) and complete source code.
+
+### Kinematics & Inverse Kinematics
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `kinematics/test_pinocchio.py` | Pinocchio installation and basic usage | [🎥 Watch](https://www.bilibili.com/video/BV1UFoRYDEfF) |
+| `kinematics/ik_casadi_panda.py` | IK with Pinocchio + CasADi | [🎥 Watch](https://www.bilibili.com/video/BV1o38gzSE9h) |
+| `kinematics/kdl_urdf_test.py` | PyKDL IK without ROS | [🎥 Watch](https://www.bilibili.com/video/BV1RWMHzREg4) |
+| `tests/test_pyroboplan.py` | PyRoboPlan differential IK with constraints | [🎥 Watch](https://www.bilibili.com/video/BV1Rod6YHET2) |
+| `kinematics/ik_path_paln_trajectory_pyroboplan.py` | Cartesian IK + path planning + trajectory optimization | [🎥 Watch](https://www.bilibili.com/video/BV1qA5EzPEFh) |
+
+### Robot Control
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `control/control_joint_pos.py` | Joint space position control | [🎥 Watch](https://www.bilibili.com/video/BV1pWoBYcETJ) |
+| `control/control_ee_with_pinocchio.py` | Cartesian CLIK control with Pinocchio | [🎥 Watch](https://www.bilibili.com/video/BV1aAZYYAE5f) |
+| `control/control_ee_with_pinocchio_so100.py` | SO-ARM100 end-effector control | [🎥 Watch](https://www.bilibili.com/video/BV1o38gzSE9h) |
+| `control/pid_torque_and_get.py` | PID torque control | [🎥 Watch](https://www.bilibili.com/video/BV1MbL6zSEAY) |
+| `control/joint_impedance_control.py` | Joint space impedance control | [🎥 Watch](https://www.bilibili.com/video/BV1UK5czMEQr) |
+| `control/so100_real_control.py` | Sim2Real: SO-ARM100 real robot control | [🎥 Watch](https://www.bilibili.com/video/BV1gHeHz7ETT) |
+
+### Path Planning & Trajectory Optimization
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `path_planning/path_plan_ompl_rrtconnect.py` | RRT path planning with OMPL | [🎥 Watch](https://www.bilibili.com/video/BV1EJd5YQExw) |
+| `path_planning/path_plan_pyroboplan_rrt.py` | RRT planning + trajectory optimization | [🎥 Watch](https://www.bilibili.com/video/BV1tZo7YjEgd) |
+| `path_planning/path_plan_pyroboplan_rrt_draw_trajectory.py` | End-effector trajectory visualization | [🎥 Watch](https://www.bilibili.com/video/BV1B2ocYSE7r) |
+| `path_planning/trajectory_plan_toppra.py` | Time-optimal trajectory planning with TOPPRA | [🎥 Watch](https://www.bilibili.com/video/BV1fndxYSEui) |
+
+### Reinforcement Learning
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `reinforcement_learning/rl_panda.py` | PPO for inverse kinematics | [🎥 Watch](https://www.bilibili.com/video/BV1mHLVzzEMj) |
+| `reinforcement_learning/rl_panda_reach_target_high_profile.py` | PPO end-effector reaching task | [🎥 Watch](https://www.bilibili.com/video/BV1DAskzmEPZ) |
+| `reinforcement_learning/rl_panda_obstacle.py` | Obstacle avoidance with RL | - |
+| `reinforcement_learning/add_random_obstacle.py` | Dynamic obstacle generation | - |
+
+### Visualization & Sensors
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `visualization/panda_viewer.py` | Custom MuJoCo viewer | [🎥 Watch](https://www.bilibili.com/video/BV1gaXxYaEnv) |
+| `visualization/panda_pbvs.py` | Position-Based Visual Servoing (PBVS) | [🎥 Watch](https://www.bilibili.com/video/BV18zC5BNEt6) |
+| `visualization/get_camera_pic.py` | Camera rendering and image capture | [🎥 Watch](https://www.bilibili.com/video/BV1THGSzvE6t) |
+| `sensors/get_body_pos.py` | Real-time end-effector tracking | [🎥 Watch](https://www.bilibili.com/video/BV1gaXxYaEnv) |
+| `sensors/get_torque.py` | Torque analysis with mouse interaction | [🎥 Watch](https://www.bilibili.com/video/BV1kH79zUEAc) |
+| `sensors/set_and_get_qvel.py` | Joint velocity recording and visualization | [🎥 Watch](https://www.bilibili.com/video/BV1kSLdznEMd) |
+| `sensors/contact_detect.py` | Contact and collision detection | [🎥 Watch](https://www.bilibili.com/video/BV12WfFYYE4T) |
+| `sensors/move_ball.py` | Keyboard control with pose recording | [🎥 Watch](https://www.bilibili.com/video/BV1oTZrYaE2h) |
+
+### Joystick Control
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `joystick/joystick_so100.py` | Xbox controller for MuJoCo simulation | [🎥 Watch](https://www.bilibili.com/video/BV1fyYLzVEbW) |
+| `joystick/joystick_sim_and_real_so100.py` | Dual-scene: simulation + real robot | [🎥 Watch](https://www.bilibili.com/video/BV1RCp1zFE2v) |
+
+### Motion Capture & Others
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `mocap/mocap_panda.py` | MuJoCo mocap interface | [🎥 Watch](https://www.bilibili.com/video/BV1k651zXEeN) |
+| `tests/test_why_continuous_2q.py` | Pinocchio continuous joint issue | [🎥 Watch](https://www.bilibili.com/video/BV1tvVrzmEgx) |
+| `converters/mjcf2usd.py` | MJCF to USD converter | - |
+
+### Installation Guides
+
+| File | Description | Video Tutorial |
+|------|-------------|----------------|
+| `scripts/install_pinocchio.sh` | Build Pinocchio from source with CasADi | [🎥 Watch](https://www.bilibili.com/video/BV1mSghz1EUx) |
+| `scripts/install_pykdl.sh` | Build PyKDL from source | [🎥 Watch](https://www.bilibili.com/video/BV1RWMHzREg4) |
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 🎓 Citation
+
+If you find this repository helpful, please consider giving it a ⭐️!
+
+## 📺 Author
+
+Videos and tutorials: [@Bilibili](https://space.bilibili.com/445308449)
+
+## 🙏 Acknowledgments
+
+- [MuJoCo](https://mujoco.org/) - Physics engine
+- [Pinocchio](https://github.com/stack-of-tasks/pinocchio) - Rigid body dynamics library
+- [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) - RL algorithms
+- [PyRoboPlan](https://github.com/sea-bass/pyroboplan) - Robot planning library
